@@ -1,5 +1,5 @@
 class Inventory
-  def initialize(products = nil)
+  def initialize(products = [])
     @products = products
   end
 

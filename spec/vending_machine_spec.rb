@@ -18,4 +18,13 @@ RSpec.describe VendingMachine do
 
     VendingMachine.new(nil, coins)
   end
+
+  it 'allows you to insert coins to increase your balance' do
+    coins = [ 50, 50 ]
+    vending_machine = VendingMachine.new
+
+    vending_machine.insert_coins(coins)
+
+    expect(vending_machine.balance).to eq(coins.sum)
+  end
 end

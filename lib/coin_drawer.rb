@@ -1,6 +1,10 @@
 class CoinDrawer
-  def initialize(coins)
+  def initialize(coins = [])
     @coins = coins
+  end
+
+  def add(coins)
+    @coins += coins
   end
 
   def balance
