@@ -7,6 +7,10 @@ class Inventory
     @products
   end
 
+  def add(products)
+    @products += products
+  end
+
   def retrieve(product_name)
     index = product_index(product_name)
 

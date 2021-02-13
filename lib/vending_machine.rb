@@ -16,6 +16,14 @@ class VendingMachine
     @coin_drawer.add(coins)
   end
 
+  def load_products(products)
+    @inventory.add(products)
+  end
+
+  def list_products
+    @inventory.list
+  end
+
   def balance
     @coin_drawer.balance
   end

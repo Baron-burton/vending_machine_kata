@@ -62,4 +62,15 @@ RSpec.describe VendingMachine do
 
     expect(vending_machine.balance).to eq(50)
   end
+
+  it 'allows you to reload products into the machine' do
+    vending_machine = VendingMachine.new()
+
+    expect(vending_machine.list_products).to eq([])
+
+    coke = Product.new(name: 'Coke', price: 50)
+    vending_machine.load_products([coke])
+
+    expect(vending_machine.list_products).to eq([coke])
+  end
 end
