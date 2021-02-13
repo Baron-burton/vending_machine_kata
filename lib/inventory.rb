@@ -8,10 +8,22 @@ class Inventory
   end
 
   def retrieve(product_name)
-    index = @products.index do |product|
-      product.name == product_name
-    end
+    index = product_index(product_name)
 
     @products.delete_at(index)
+  end
+
+  def product_details(product_name)
+    index = product_index(product_name)
+
+    @products[index]
+  end
+
+  private
+
+  def product_index(product_name)
+    @products.index do |product|
+      product.name == product_name
+    end
   end
 end
