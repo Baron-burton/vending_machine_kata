@@ -31,20 +31,30 @@ RSpec.describe VendingMachine do
   it 'accepts an order for a product' do
     coke_product = Product.new(name: 'Coke', price: 50)
 
-    vending_machine = VendingMachine.new([coke_product], nil)
+    vending_machine = VendingMachine.new([coke_product])
     vending_machine.insert_coins([50])
 
-    expect(vending_machine.order('Coke')).to eq(coke_product)
+    expect(vending_machine.order('Coke')).to contain_exactly(coke_product, nil)
   end
 
   it 'requires you to insert enough coins for the product' do
     coke_product = Product.new(name: 'Coke', price: 50)
 
-    vending_machine = VendingMachine.new([coke_product], nil)
+    vending_machine = VendingMachine.new([coke_product])
 
     expect { vending_machine.order('Coke') }.to raise_error(
       InsufficientFunds, 'Please insert more coins'
     )
+  end
+
+  it 'can return change with the product' do
+    coins = [ 1, 2, 5, 10, 20, 50, 100, 200 ]
+    coke_product = Product.new(name: 'Coke', price: 50)
+
+    vending_machine = VendingMachine.new([coke_product], coins)
+    vending_machine.insert_coins([100])
+
+    expect(vending_machine.order('Coke')).to contain_exactly(coke_product, [50])
   end
 
   it 'allows you to view the machine\'s coin balance' do

@@ -18,4 +18,20 @@ RSpec.describe CoinDrawer do
 
     expect(coin_drawer.balance).to eq expected_balance
   end
+
+  it 'adjust the balance when taking payment' do
+    inserted_coins = [ 5, 10 ]
+    price_of_product = 10
+
+    coin_drawer = CoinDrawer.new(inserted_coins)
+
+    expect(coin_drawer.handle_payment(price_of_product)).to eq(5)
+  end
+
+  it 'returns change if too much money is provided' do
+    initial_coin_load  = [ 1, 1, 1, 2, 10 ]
+    coin_drawer = CoinDrawer.new(initial_coin_load)
+
+    expect(coin_drawer.return_change(5)).to eq([2, 1, 1, 1])
+  end
 end
