@@ -25,7 +25,7 @@ RSpec.describe VendingMachine do
 
     vending_machine.insert_coins(coins)
 
-    expect(vending_machine.balance).to eq(coins.sum)
+    expect(vending_machine.customer_balance).to eq(coins.sum)
   end
 
   it 'accepts an order for a product' do
@@ -45,5 +45,11 @@ RSpec.describe VendingMachine do
     expect { vending_machine.order('Coke') }.to raise_error(
       InsufficientFunds, 'Please insert more coins'
     )
+  end
+
+  it 'allows you to view the machine\'s coin balance' do
+    vending_machine = VendingMachine.new(nil, [50])
+
+    expect(vending_machine.balance).to eq(50)
   end
 end

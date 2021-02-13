@@ -13,6 +13,10 @@ class VendingMachine
   end
 
   def balance
+    @coin_drawer.balance
+  end
+
+  def customer_balance
     customer_credit.balance
   end
 
@@ -33,6 +37,6 @@ class VendingMachine
   def customer_balance_sufficient_for?(product_name)
     product = @inventory.product_details(product_name)
 
-    balance >= product.price
+    customer_balance >= product.price
   end
 end
