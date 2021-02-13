@@ -52,4 +52,14 @@ RSpec.describe VendingMachine do
 
     expect(vending_machine.balance).to eq(50)
   end
+
+  it 'allows you to reload coins into the machine' do
+    vending_machine = VendingMachine.new()
+
+    expect(vending_machine.balance).to eq(0)
+
+    vending_machine.load_coins([50])
+
+    expect(vending_machine.balance).to eq(50)
+  end
 end
