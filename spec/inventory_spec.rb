@@ -12,4 +12,14 @@ RSpec.describe Inventory do
 
     expect(inventory.list).to eq products
   end
+
+  it 'allows you to retrieve an item from the inventory' do
+    coke_product = Product.new(name: 'Coke', price: 50)
+    dorito_product = Product.new(name: 'Doritos', price: 100)
+
+    inventory = Inventory.new([coke_product, dorito_product])
+
+    expect(inventory.retrieve('Coke')).to eq coke_product
+    expect(inventory.list).to eq [dorito_product]
+  end
 end
