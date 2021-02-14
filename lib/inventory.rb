@@ -1,3 +1,5 @@
+require 'byebug'
+class OutOfStockError < StandardError; end
 class Inventory
   def initialize(products = [])
     @products = products
@@ -26,8 +28,12 @@ class Inventory
   private
 
   def product_index(product_name)
-    @products.index do |product|
+    index = @products.index do |product|
       product.name == product_name
     end
+
+    raise OutOfStockError.new('Sorry, we\'re out of stock.') if index.nil?
+
+    index
   end
 end

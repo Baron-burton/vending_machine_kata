@@ -22,4 +22,29 @@ RSpec.describe Inventory do
     expect(inventory.retrieve('Coke')).to eq coke_product
     expect(inventory.list).to eq [dorito_product]
   end
+
+  it 'allows you to add products' do
+    coke_product = Product.new(name: 'Coke', price: 50)
+
+    inventory = Inventory.new()
+    inventory.add([coke_product])
+
+    expect(inventory.list).to eq([coke_product])
+  end
+
+  it 'allows you to check the a product\'s details' do
+    coke_product = Product.new(name: 'Coke', price: 50)
+
+    inventory = Inventory.new([coke_product])
+
+    expect(inventory.product_details('Coke')).to eq(coke_product)
+  end
+
+  it 'raises an OutOfStockError if the product isn\t there' do
+    inventory = Inventory.new()
+
+    expect { inventory.product_details('Coke') }.to raise_error(
+      OutOfStockError, 'Sorry, we\'re out of stock.'
+    )
+  end
 end
