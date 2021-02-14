@@ -10,6 +10,7 @@ class VendingMachine
 
   def insert_coins(coins)
     customer_credit.add(coins)
+    @coin_drawer.add(coins)
   end
 
   def load_coins(coins)

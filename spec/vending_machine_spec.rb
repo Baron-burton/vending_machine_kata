@@ -28,6 +28,15 @@ RSpec.describe VendingMachine do
     expect(vending_machine.customer_balance).to eq(100)
   end
 
+  it 'inserting coins should also increase the vending machine\'s balance' do
+    coins = [ '50p', '50p' ]
+    vending_machine = VendingMachine.new
+
+    vending_machine.insert_coins(coins)
+
+    expect(vending_machine.balance).to eq(100)
+  end
+
   it 'accepts an order for a product' do
     coke_product = Product.new(name: 'Coke', price: 50)
 
