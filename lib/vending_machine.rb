@@ -1,5 +1,6 @@
 require_relative 'inventory'
 require_relative 'coin_drawer'
+
 class InsufficientFunds < StandardError; end
 class VendingMachine
   def initialize(products = [], coins = [])
@@ -51,7 +52,7 @@ class VendingMachine
   def customer_balance_sufficient_for?(product_name)
     product = @inventory.product_details(product_name)
 
-    customer_balance >= product.price
+    customer_balance && customer_balance >= product.price
   end
 
   def handle_change(amount_owing)

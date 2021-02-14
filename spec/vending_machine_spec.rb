@@ -12,7 +12,7 @@ RSpec.describe VendingMachine do
   end
 
   it 'can take an initial load of coins' do
-    coins = [ 1, 2, 5, 10, 20, 50, 100, 200 ]
+    coins = [ '1p', '2p', '5p', '10p', '20p', '50p', '£1', '£2' ]
 
     expect(CoinDrawer).to receive(:new).with(coins)
 
@@ -20,19 +20,19 @@ RSpec.describe VendingMachine do
   end
 
   it 'allows you to insert coins to increase your balance' do
-    coins = [ 50, 50 ]
+    coins = [ '50p', '50p' ]
     vending_machine = VendingMachine.new
 
     vending_machine.insert_coins(coins)
 
-    expect(vending_machine.customer_balance).to eq(coins.sum)
+    expect(vending_machine.customer_balance).to eq(100)
   end
 
   it 'accepts an order for a product' do
     coke_product = Product.new(name: 'Coke', price: 50)
 
     vending_machine = VendingMachine.new([coke_product])
-    vending_machine.insert_coins([50])
+    vending_machine.insert_coins([ '50p' ])
 
     expect(vending_machine.order('Coke')).to contain_exactly(coke_product, nil)
   end
@@ -48,17 +48,17 @@ RSpec.describe VendingMachine do
   end
 
   it 'can return change with the product' do
-    coins = [ 1, 2, 5, 10, 20, 50, 100, 200 ]
+    coins = [ '1p', '2p', '5p', '10p', '20p', '50p', '£1', '£2' ]
     coke_product = Product.new(name: 'Coke', price: 50)
 
     vending_machine = VendingMachine.new([coke_product], coins)
-    vending_machine.insert_coins([100])
+    vending_machine.insert_coins([ '£1' ])
 
-    expect(vending_machine.order('Coke')).to contain_exactly(coke_product, [50])
+    expect(vending_machine.order('Coke')).to contain_exactly(coke_product, [ '50p' ])
   end
 
   it 'allows you to view the machine\'s coin balance' do
-    vending_machine = VendingMachine.new(nil, [50])
+    vending_machine = VendingMachine.new(nil, [ '50p' ])
 
     expect(vending_machine.balance).to eq(50)
   end
@@ -68,7 +68,7 @@ RSpec.describe VendingMachine do
 
     expect(vending_machine.balance).to eq(0)
 
-    vending_machine.load_coins([50])
+    vending_machine.load_coins([ '50p' ])
 
     expect(vending_machine.balance).to eq(50)
   end
