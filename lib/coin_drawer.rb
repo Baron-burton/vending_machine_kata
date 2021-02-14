@@ -1,4 +1,3 @@
-require 'byebug'
 class CoinDrawer
   DENOMINATIONS_TO_PENCE = {
     '1p' => 1,

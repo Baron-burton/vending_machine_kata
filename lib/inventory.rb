@@ -1,4 +1,3 @@
-require 'byebug'
 class OutOfStockError < StandardError; end
 class Inventory
   def initialize(products = [])
